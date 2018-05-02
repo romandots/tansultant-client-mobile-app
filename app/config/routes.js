@@ -2,15 +2,16 @@
 
 import {
 	StackNavigator,
-	NavigationActions,
 } from 'react-navigation';
 
 import Home from "../screens/Home";
 import {LoginScreen} from "../screens/LoginScreen";
+import {ProfileScreen} from "../screens/ProfileScreen";
+import NewsScreen from "../screens/NewsScreen";
 
-const routes = {
-	Home: {
-		screen: Home,
+const ProfileStack = StackNavigator({
+	Profile: {
+		screen: ProfileScreen,
 		navigationOptions: {
 			header: () => null,
 		}
@@ -18,7 +19,17 @@ const routes = {
 	Login: {
 		screen: LoginScreen
 	}
+});
+
+const routes = {
+	Profile: {
+		screen: ProfileStack,
+	},
+	News: {
+		screen: NewsScreen
+	}
 };
 
-export {NavigationActions};
-export default StackNavigator(routes);
+export default StackNavigator(routes, {
+	headerMode: "screen"
+});

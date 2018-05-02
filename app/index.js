@@ -5,9 +5,8 @@ import {
 } from 'react-navigation';
 import {
 	createStore,
-	applyMiddleware,
-	combineReducers,
-} from 'redux';
+	combineReducers, applyMiddleware
+} from "redux";
 import {
 	createReduxBoundAddListener,
 	createReactNavigationReduxMiddleware,
@@ -16,11 +15,15 @@ import { Provider, connect } from 'react-redux';
 import EStyleSheet from "react-native-extended-stylesheet";
 import React from 'react';
 import AppNavigator from "./config/routes";
-import nav from "./reducers/nav"
+import reducers from "./reducers";
+import {createLogger} from "redux-logger";
+import thunk from "redux-thunk";
+import promise from "redux-promise-middleware";
 
 
-const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Home'));
+const HOME_SCREEN = "News";
 
+const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams(HOME_SCREEN));
 const navReducer = (state = initialState, action) => {
 	const nextState = AppNavigator.router.getStateForAction(action, state);
 
@@ -28,9 +31,9 @@ const navReducer = (state = initialState, action) => {
 	return nextState || state;
 };
 
-const appReducer = combineReducers({
-	nav
-});
+const appReducer = combineReducers(Object.assign({
+	nav: navReducer,
+},reducers));
 
 // Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
 const middleware = createReactNavigationReduxMiddleware(
@@ -65,10 +68,18 @@ const mapStateToProps = (state) => ({
 
 const AppWithNavigationState = connect(mapStateToProps)(App);
 
+/**
+ * Хранилище данных приложения
+ * @type {object}
+ */
 const store = createStore(
 	appReducer,
-	applyMiddleware(middleware),
+	applyMiddleware(middleware, createLogger(), promise(), thunk)
 );
+// подписываемся на все события и выводим изменения в лог
+store.subscribe(() => {
+	console.log('Store changed', store.getState());
+});
 
 class Root extends React.Component {
 	render() {
