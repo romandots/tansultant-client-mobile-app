@@ -1,6 +1,6 @@
 "use strict";
 
-import {HomeScreen} from "./HomeScreen";
+import {HomeScreen} from "./Home";
 import {DetailsScreen} from "./DetailsScreen";
 
 import {LoginScreen} from "./LoginScreen";

@@ -1,10 +1,12 @@
 "use strict";
 
 import { combineReducers } from 'redux';
-import app from './appReducer';
-import news from './newsReducer';
+import nav from './nav';
+import app from './app';
+import news from './news';
 
 export default combineReducers({
+	nav,
 	app,
 	// user : userReducer,
 	news

@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.13.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
     "jest-expo": "26.0.0",
+    "react-native-scripts": "1.13.1",
     "react-test-renderer": "16.3.0-alpha.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -13,22 +17,29 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint app/",
+    "lint:fix": "eslint app/ --fix"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/vector-icons": "^6.3.1",
     "axios": "^0.18.0",
+    "color": "^3.0.0",
     "expo": "^26.0.0",
+    "moment": "^2.22.1",
     "native-base": "^2.4.2",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
+    "react-native-dropdownalert": "^3.4.0",
     "react-native-easy-grid": "^0.1.17",
     "react-native-elements": "^0.19.1",
-    "react-native-router-flux": "^4.0.0-beta.26",
+    "react-native-extended-stylesheet": "^0.8.1",
     "react-native-ui-kitten": "^3.0.0",
     "react-navigation": "1.5.8",
+    "react-navigation-redux-helpers": "^1.0.5",
     "react-redux": "^5.0.7",
     "react-thunk": "^1.0.0",
     "redux": "^4.0.0",
