@@ -54,7 +54,7 @@ class Api {
 					url = url.replace(regexp2, params[param]);
 				}
 			}
-			console.log(`API route "${route}" is: ${route}`);
+			console.log(`API route "${route}" is: ${API_URL}${url}`);
 			return route;
 		} else {
 			return undefined;
