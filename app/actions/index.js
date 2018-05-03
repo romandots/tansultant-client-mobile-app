@@ -1,8 +1,8 @@
 "use strict";
 
 import * as app from './appActions';
-import * as news from './newsActions';
+import {newsActions} from '../modules/News';
 export const ActionCreators = Object.assign({},
 	app,
-	news
+	newsActions
 );

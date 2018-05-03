@@ -68,13 +68,14 @@ const mapStateToProps = (state) => ({
 
 const AppWithNavigationState = connect(mapStateToProps)(App);
 
+
 /**
  * Хранилище данных приложения
  * @type {object}
  */
 const store = createStore(
 	appReducer,
-	applyMiddleware(middleware, createLogger(), promise(), thunk)
+	applyMiddleware(middleware, promise(), thunk, createLogger() )
 );
 // подписываемся на все события и выводим изменения в лог
 store.subscribe(() => {

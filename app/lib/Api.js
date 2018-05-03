@@ -61,6 +61,12 @@ class Api {
 		}
 	}
 
+	static fetch( model, params ){
+		let promise = Api.get(model + '.index', params, "get");
+		console.log(promise);
+		return promise;
+	}
+
 	static get( route, params ){
 		return Api.axios(route, params, "get");
 	}

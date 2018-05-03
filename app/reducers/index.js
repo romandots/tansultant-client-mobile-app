@@ -2,10 +2,10 @@
 
 import { combineReducers } from 'redux';
 import app from './app';
-import news from './news';
+import {newsReducer} from '../modules/News';
 
 export default combineReducers({
 	app,
 	// user : userReducer,
-	news
+	newsReducer
 })
