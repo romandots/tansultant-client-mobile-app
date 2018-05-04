@@ -1,7 +1,6 @@
 "use strict";
 
-import Api from '/lib/Api';
-import store from '/store';
+import Api from '../../lib/Api';
 import {NEWS_FETCH, NEWS_LOAD_ENTRY, NEWS_PICK_ENTRY} from "./types";
 
 /**

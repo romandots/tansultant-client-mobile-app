@@ -1,10 +1,6 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 
-import Container from "../components/Container";
 import {Text, View} from "react-native";
-import Logo from "../components/Logo";
-import {InputCardNumber} from "../components/Inputs";
 import Button from "react-native-elements/src/buttons/Button";
 
 class Home extends Component {
@@ -22,7 +18,6 @@ class Home extends Component {
 				alignItems    : "center",
 				justifyContent: "center"
 			}}>
-				<Logo/>
 				<Text>Home Screen</Text>
 				<Button
 					title="Go to Login"

@@ -3,7 +3,7 @@
 import _ from "underscore";
 import React from "react";
 import {connect} from "react-redux";
-import {fetchNews} from "../actions/newsActions";
+import {newsFetch} from "../modules/News/actions";
 import NewsList from "../components/NewsList";
 import ScreenLayout from "../components/ScreenLayout";
 import {Text} from "native-base";
@@ -15,7 +15,7 @@ class NewsScreen extends React.Component {
 	};
 
 	componentDidMount(){
-		this.props.fetchNews();
+		this.props.newsFetch();
 	}
 
 	render(){
@@ -64,6 +64,6 @@ export default connect(
 		news : state.news
 	}),
 	dispatch => ({
-		fetchNews : () => dispatch(fetchNews())
+        newsFetch : () => dispatch(newsFetch())
 	}),
 )(NewsScreen);

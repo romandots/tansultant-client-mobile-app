@@ -3,7 +3,7 @@ import _ from "underscore";
 import React, {Component} from "react";
 import NewsEntry from "./NewsEntry";
 import {connect} from "react-redux";
-import {openNewsEntry} from "../actions/newsActions";
+import {newsPick} from "../modules/News/actions";
 
 class NewsList extends Component {
 
@@ -12,7 +12,7 @@ class NewsList extends Component {
 		this.list = [];
 		if(!_.isEmpty(props.collection)){
 			for( const index in props.collection ){
-				this.list.push(<NewsEntry data={props.collection[index]} onPress={() => this.props.openNewsEntry(index)} />);
+				this.list.push(<NewsEntry data={props.collection[index]} onPress={() => this.props.newsPick(index)} />);
 			}
 		}
 	}
@@ -26,5 +26,5 @@ class NewsList extends Component {
 	}
 }
 export default connect(()=>{}, dispatch => ({
-	openNewsEntry : () => dispatch(openNewsEntry())
+    newsPick : () => dispatch(newsPick())
 }))(NewsList);
