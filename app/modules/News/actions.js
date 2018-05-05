@@ -22,7 +22,7 @@ export function newsFetch(){
  * @returns {{type: string, payload: *}}
  */
 export function newsPick(index){
-	console.log(`openNewsEntry(${index})`, this);
+	console.log(`newsPick(${index})`, this);
 	// let state = store.getState();
 	// console.log(`state`, state);
 	return {
@@ -42,5 +42,18 @@ export function newsLoadPicked(){
 	return {
 		type: NEWS_LOAD_ENTRY,
 		payload : state.news.collection[state.news.pickedItem]
+	};
+}
+
+
+/**
+ * Load picked entry
+ * @returns {{type: string, payload: *}}
+ */
+export function newsLoad(data){
+	console.log(`newsLoad(${data})`);
+	return {
+		type: NEWS_LOAD_ENTRY,
+		payload : data
 	};
 }

@@ -16,10 +16,11 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import React from 'react';
 import AppNavigator from "./config/routes";
 import reducers from "./reducers";
+import {newsReducer} from "./modules/News"
 import {createLogger} from "redux-logger";
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
-
+import theme from "./config/theme"
 
 const HOME_SCREEN = "News";
 
@@ -31,9 +32,11 @@ const navReducer = (state = initialState, action) => {
 	return nextState || state;
 };
 
-const appReducer = combineReducers(Object.assign({
+const appReducer = combineReducers({
 	nav: navReducer,
-},reducers));
+	news: newsReducer,
+	...reducers
+});
 
 // Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
 const middleware = createReactNavigationReduxMiddleware(
@@ -43,11 +46,7 @@ const middleware = createReactNavigationReduxMiddleware(
 const addListener = createReduxBoundAddListener("root");
 
 
-EStyleSheet.build({
-	$white : "#FFFFFF",
-	$primaryBlue : '#4F6D7A',
-	$lightGray : '#cde5ee',
-});
+EStyleSheet.build(theme);
 
 
 class App extends React.Component {

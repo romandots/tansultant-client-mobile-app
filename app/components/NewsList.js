@@ -3,28 +3,28 @@ import _ from "underscore";
 import React, {Component} from "react";
 import NewsEntry from "./NewsEntry";
 import {connect} from "react-redux";
-import {newsPick} from "../modules/News/actions";
+import {newsLoad} from "../modules/News/actions";
 
 class NewsList extends Component {
 
 	constructor(props){
 		super(props);
-		this.list = [];
-		if(!_.isEmpty(props.collection)){
-			for( const index in props.collection ){
-				this.list.push(<NewsEntry data={props.collection[index]} onPress={() => this.props.newsPick(index)} />);
-			}
-		}
+		this.props = props;
+		this.list = props.collection;
+	}
+
+	pickOne(data){
+		console.log('data', data);
+		
+		this.props.newsLoad(data);
 	}
 
 	render(){
-		if( this.list.length ){
-			return this.list;
-		} else {
-			return '';
-		}
+		return this.list.length ? this.list.map(entry => <NewsEntry key={entry} data={entry} onPress={() => this.pickOne(entry)}/>) : null;
 	}
 }
-export default connect(()=>{}, dispatch => ({
-    newsPick : () => dispatch(newsPick())
+export default connect( state =>({
+	news : state.news
+}), dispatch => ({
+    newsLoad : (index) => dispatch(newsLoad(index))
 }))(NewsList);

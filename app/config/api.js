@@ -1,6 +1,6 @@
 "use strict";
 
-export const API_URL = 'http://192.168.1.4:8000/api/v1/';
+export const API_URL = 'http://192.168.1.3:8000/api/v1/';
 export const API_KEY = 'LKT4390UTKLMNSG908UT4HNGP';
 
 const routes = {

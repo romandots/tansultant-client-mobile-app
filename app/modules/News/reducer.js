@@ -1,7 +1,7 @@
 "use strict";
 
 // import createReducer from '../lib/createReducer';
-import {NEWS_FETCH, NEWS_FETCH_FULFILLED, NEWS_FETCH_REJECTED, NEWS_LOAD_ENTRY, NEWS_LOAD_ENTRY_REJECTED, NEWS_PICK_ENTRY} from "./types";
+import {NEWS_FETCH, NEWS_FETCH_FULFILLED, NEWS_FETCH_PENDING, NEWS_FETCH_REJECTED, NEWS_LOAD_ENTRY, NEWS_LOAD_ENTRY_REJECTED, NEWS_PICK_ENTRY} from "./types";
 
 /**
  * Default initial state
@@ -10,14 +10,15 @@ import {NEWS_FETCH, NEWS_FETCH_FULFILLED, NEWS_FETCH_REJECTED, NEWS_LOAD_ENTRY, 
 const initialState = {
 	fetching       : false,
 	fetched        : false,
-	error          : null,
-	message        : null,
+	error          : "",
+	message        : "",
 	collection     : [],
 	pickedItem     : {},
 	pickedItemIndex: null
 };
 
 export default function reducer( state = initialState, action ){
+	console.log('Reducing state:', state, action);
 	switch(action.type){
 
 		// fetch news
@@ -32,9 +33,18 @@ export default function reducer( state = initialState, action ){
 				fetched : false
 			};
 		case NEWS_FETCH_FULFILLED:
+			const data = action.payload;
+			if( data.error ) {
+				return {
+					...state,
+					error     : data.message,
+					fetching  : false,
+					fetched   : false
+				};
+			}
 			return {
 				...state,
-				collection: action.payload.data,
+				collection: data,
 				error     : "",
 				fetching  : false,
 				fetched   : true
@@ -56,10 +66,8 @@ export default function reducer( state = initialState, action ){
 		case NEWS_LOAD_ENTRY:
 			return {
 				...state,
-				pickedItem: action.payload.data,
+				pickedItem: action.payload,
 				error     : "",
-				fetching  : false,
-				fetched   : true
 			};
 		case NEWS_LOAD_ENTRY_REJECTED:
 			return {
@@ -67,8 +75,6 @@ export default function reducer( state = initialState, action ){
 				pickedItemIndex: null,
 				pickedItem: {},
 				error   : "Не удалось загрузить новость.",
-				fetching: false,
-				fetched : false
 			};
 
 		default:

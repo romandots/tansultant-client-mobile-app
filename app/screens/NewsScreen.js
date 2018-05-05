@@ -5,7 +5,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {newsFetch} from "../modules/News/actions";
 import NewsList from "../components/NewsList";
-import ScreenLayout from "../components/ScreenLayout";
+import ScreenLayout from "../components/Layouts/Screen";
 import {Text} from "native-base";
 
 
@@ -19,41 +19,42 @@ class NewsScreen extends React.Component {
 	}
 
 	render(){
+		const news = this.props.news;
+		console.log('this.props', this.props);
+
 		// Item is loaded
 		if(! _.isEmpty(this.props.pickedItem) ){
 			return (
-				<ScreenLayout>
-					<NewsItem data={this.props.pickedItem}/>
+				<ScreenLayout message={news.error || news.message}>
+					<NewsItem data={news.pickedItem}/>
 				</ScreenLayout>
 			);
 		}
 		// Item is picked
-		else if(! _.isNull(this.props.pickedItemIndex) ){
+		else if( news.pickedItemIndex ){
 			return (
-				<ScreenLayout loading={this.props.fetching} />
+				<ScreenLayout message={news.error || news.message} loading={news.fetching} />
 			);
 		}
 		// Show the list if loaded already
-		 else if (!_.isEmpty(this.props.collection)) {
+		 else if (news.collection.length) {
 			return (
-				<ScreenLayout>
-					<NewsList collection={this.props.collection}/>
+				<ScreenLayout message={news.error || news.message}>
+					<NewsList collection={news.collection}/>
 				</ScreenLayout>
 			);
 		}
 		// Show the loading
-		 else if (this.props.fetching) {
+		 else if (news.fetching) {
 			return (
-				<ScreenLayout loading={this.props.fetching} />
+				<ScreenLayout message={news.error || news.message} loading={news.fetching} />
 			);
 		}
 		// Else
 		else {
 
 			return (
-				<ScreenLayout>
-					<Text>Эм...</Text>
-				</ScreenLayout>
+				<ScreenLayout message={news.error || news.message}/>
 			);
 		}
 	}
